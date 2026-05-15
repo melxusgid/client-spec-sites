@@ -372,34 +372,42 @@ nav{
   border:1px solid var(--rule-strong);
   padding:50px;
   display:grid;
-  grid-template-columns:1.1fr 1fr;
-  gap:48px;align-items:center;
+  grid-template-columns:1.15fr 1fr;
+  gap:48px;align-items:stretch;
   position:relative;
 }
-.zone-svg{width:100%;height:auto;display:block}
-.zone-svg .neigh{
-  fill:rgba(107,26,26,0.08);
-  stroke:rgba(21,17,14,0.18);
-  stroke-width:1;
-  transition:fill 0.3s;
+.zone-map{
+  position:relative;
+  background:var(--jet);
+  padding:6px;
+  border:1px solid var(--jet);
+  display:flex;flex-direction:column;
 }
-.zone-svg .neigh.primary{
-  fill:var(--oxblood);
-  stroke:var(--oxblood-deep);
+.zone-map-frame{
+  position:relative;
+  overflow:hidden;
+  background:#EFE6D2;
+  border:1px solid var(--brass);
 }
-.zone-svg .neigh.secondary{
-  fill:rgba(107,26,26,0.4);
-  stroke:var(--oxblood);
+.zone-map-frame iframe{
+  width:100%;height:380px;display:block;border:0;
+  filter:saturate(0.82) contrast(1.04);
 }
-.zone-svg text{
+.zone-map-bar{
+  background:var(--jet);color:var(--cream);
+  padding:14px 14px 6px;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
   font-family:'IBM Plex Mono',monospace;
-  font-size:9px;letter-spacing:0.1em;
-  fill:var(--jet);
-  text-transform:uppercase;
+  font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;
 }
-.zone-svg text.on-dark{fill:var(--cream)}
-.zone-svg .ocean{fill:#D9CFB6}
-.zone-svg .pin{fill:var(--brass);stroke:var(--jet);stroke-width:2}
+.zone-map-bar .pin-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:var(--brass-bright);margin-right:8px;vertical-align:middle;
+}
+.zone-map-bar .brass{color:var(--brass-bright)}
+.zone-map-bar a{color:var(--brass-bright);text-decoration:none;border-bottom:1px solid rgba(166,128,43,0.4)}
+.zone-map-bar a:hover{color:var(--cream)}
+@media(max-width:760px){.zone-map-frame iframe{height:280px}}
 .zone-info h3{
   font-family:'Anton',sans-serif;
   font-size:42px;line-height:0.95;letter-spacing:-0.01em;
@@ -866,43 +874,20 @@ footer{
 <section class="section" id="area" style="padding-top:0">
 <div class="wrap">
   <div class="zone">
-    <svg class="zone-svg" viewBox="0 0 480 360" aria-label="Russell Lock & Key service area in San Francisco">
-      <!-- ocean -->
-      <rect class="ocean" x="0" y="0" width="60" height="360"/>
-      <text x="20" y="180" transform="rotate(-90 20 180)">Pacific Ocean</text>
-
-      <!-- Outer Sunset (primary) -->
-      <path class="neigh primary" d="M60,150 L180,150 L180,260 L60,260 Z"/>
-      <text class="on-dark" x="86" y="210">Outer Sunset</text>
-
-      <!-- Outer Richmond -->
-      <path class="neigh secondary" d="M60,50 L180,50 L180,150 L60,150 Z"/>
-      <text x="76" y="105">Outer Richmond</text>
-
-      <!-- Inner Sunset -->
-      <path class="neigh secondary" d="M180,150 L290,150 L290,260 L180,260 Z"/>
-      <text x="200" y="210">Inner Sunset</text>
-
-      <!-- Inner Richmond -->
-      <path class="neigh secondary" d="M180,50 L290,50 L290,150 L180,150 Z"/>
-      <text x="196" y="105">Inner Richmond</text>
-
-      <!-- Parkside -->
-      <path class="neigh secondary" d="M60,260 L180,260 L180,330 L60,330 Z"/>
-      <text x="92" y="300">Parkside</text>
-
-      <!-- Lake / Sea Cliff edge -->
-      <path class="neigh" d="M60,20 L180,20 L180,50 L60,50 Z"/>
-      <text x="84" y="40">Sea Cliff · Lake</text>
-
-      <!-- East SF (tertiary, just shown) -->
-      <path class="neigh" d="M290,50 L450,50 L450,330 L290,330 Z"/>
-      <text x="340" y="190">Citywide on request</text>
-
-      <!-- shop pin -->
-      <circle class="pin" cx="120" cy="205" r="7"/>
-      <text x="135" y="208" style="font-weight:600">Shop · 38th &amp; Judah</text>
-    </svg>
+    <div class="zone-map">
+      <div class="zone-map-frame">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-122.515%2C37.735%2C-122.460%2C37.795&amp;layer=mapnik&amp;marker=37.7610%2C-122.4960"
+          loading="lazy"
+          title="Russell Lock & Key — 38th Ave & Judah St, Outer Sunset, San Francisco"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="zone-map-bar">
+        <span><span class="pin-dot"></span>Shop · <span class="brass">38th Ave &amp; Judah St</span></span>
+        <a href="https://www.openstreetmap.org/?mlat=37.7610&amp;mlon=-122.4960#map=14/37.7610/-122.4960" target="_blank" rel="noopener">Open larger map →</a>
+      </div>
+    </div>
 
     <div class="zone-info">
       <div class="kicker">Service Area</div>
